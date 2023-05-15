@@ -10,7 +10,109 @@
 </head>
 <body>
   
-  
+  <div class="container">
+    <!-- Formulario filtro -->
+    <div class="row mt-3 mb-3">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header bg-success text-light">
+            Filtra tus super héroes
+          </div>
+          <div class="card-body">
+            <select name="publishers" id="publishers" class="form-select">
+              <option value="">Seleccione</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Tabla -->
+    <div class="row">
+      <div class="col-md-12">
+        <table id="table-superhero" class="table table-sm table-striped">
+          <thead class="bg-success text-light">
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Nombre completo</th>
+            <th>Género</th>
+            <th>Color piel</th>
+            <th>Raza</th>
+            <th>Bando</th>
+            <th>Altura</th>
+          </thead>
+          <tbody>
+            <!-- Asíncrono -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const tabla = document.querySelector("#table-superhero");
+      const cuerpoTabla = tabla.querySelector("tbody"); 
+      const lista = document.querySelector("#publishers");
+
+      function obtenerPublishers() {
+        const pm = new URLSearchParams();
+        pm.append("operacion", "listar");
+
+        fetch("./controllers/Publisher.controller.php", {
+          method: "POST",
+          body: pm
+        })
+          .then(response => response.json())
+          .then(data => {
+            data.forEach(element => {
+              const option = document.createElement("option");
+              option.value = element.id;
+              option.text = element.publisher_name;
+              lista.appendChild(option);
+            });
+          })
+      }
+
+      function obtenerSuperheros() {
+        const pm = new URLSearchParams();
+        pm.append("operacion", "listar");
+        pm.append("publisher_id", parseInt(lista.value));
+
+        fetch("./controllers/Superhero.controller.php", {
+          method: "POST",
+          body: pm
+        })
+          .then(response => response.json())
+          .then(data => {
+            
+            //Renderizamos los datos (debemos crear 2 nuevos objetos)
+            cuerpoTabla.innerHTML = '';
+            data.forEach(element => {
+              const fila = `
+              <tr>
+                  <td>${element.id}</td>
+                  <td>${element.superhero_name}</td>
+                  <td>${element.full_name}</td>
+                  <td>${element.gender}</td>
+                  <td>${element.skin_colour}</td>
+                  <td>${element.race}</td>
+                  <td>${element.alignment}</td>
+                  <td>${element.height_cm}</td>
+                </tr>
+              `;
+              cuerpoTabla.innerHTML += fila;
+            });
+
+          });
+      }
+
+      //Eventos
+      lista.addEventListener("change", obtenerSuperheros)
+
+      //Función carga cuando documento esté listo
+      obtenerPublishers();
+    });
+  </script>
   
 </body>
 </html>
