@@ -1,4 +1,4 @@
-<h1 class="text-md text-center">Reporte de superheroes</h1>
+<h1 class="text-md text-center"><?=$titulo?></h1>
 
 <table class="table table-border mt-3">
   <colgroup>
@@ -7,7 +7,7 @@
     <col style='width: 15%'>
     <col style='width: 25%'>
     <col style='width: 10%'>
-    <col style='width: 10%'>
+    <col style='width: 10%' class='text-end'>
   </colgroup>
   <thead>
     <tr>
@@ -27,7 +27,7 @@
       <td><?=$registro['gender']?></td>
       <td><?=$registro['race']?></td>
       <td><?=$registro['alignment']?></td>
-      <td class='text-end' ><?=$registro['height_cm']?></td>
+      <td><?=$registro['height_cm']?></td>
     </tr>
     <?php endforeach; ?>
   </tbody>

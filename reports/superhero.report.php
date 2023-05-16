@@ -11,7 +11,8 @@ try {
 
     //Instancias clase Superhero
     $superhero = new Superhero();
-    $datos = $superhero->listar(3);
+    $datos = $superhero->listar($_GET['publisher_id']);
+    $titulo = $_GET['titulo'];
 
     ob_start();
 
