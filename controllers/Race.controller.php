@@ -1,10 +1,10 @@
 <?php
 
-require_once '../models/RaceFilter.php';
+require_once '../models/Race.php';
 
 if (isset($_POST['operacion'])){
 
-  $race = new RaceFilter();
+  $race = new Race();
 
   if ($_POST['operacion'] == 'listar'){
     $datosObtenidos = $race->listar();

@@ -1,10 +1,10 @@
 <?php
 
-require_once '../models/GenderFilter.php';
+require_once '../models/Gender.php';
 
 if (isset($_POST['operacion'])){
 
-  $gender = new Genderfilter();
+  $gender = new Gender();
 
   if ($_POST['operacion'] == 'listar'){
     $datosObtenidos = $gender->listar();

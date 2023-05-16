@@ -1,8 +1,8 @@
 <?php
 
-require 'Conexion.php';
+require_once "Conexion.php";
 
-class AlignmentFilter extends Conexion{
+class Race extends Conexion{
   private $conexion;
 
   public function __CONSTRUCT() {
@@ -11,14 +11,14 @@ class AlignmentFilter extends Conexion{
 
   public function listar() {
     try {
-      $consulta = $this->conexion->prepare("SELECT * FROM alignment");
+      $consulta = $this->conexion->prepare("SELECT * FROM race");
       $consulta->execute();
-      return $consulta->fetchAll(PDO::FETCH_ASSOC);
+      return $consulta->fetchAll(PDO::FETCH_NUM);
     } catch (Exception $e) {
       die($e->getMessage());
     }
   }
-  
+
 }
 
 ?>

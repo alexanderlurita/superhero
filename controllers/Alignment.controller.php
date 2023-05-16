@@ -1,10 +1,10 @@
 <?php
 
-require_once '../models/AlignmentFilter.php';
+require_once '../models/Alignment.php';
 
 if (isset($_POST['operacion'])){
 
-  $alignment = new AlignmentFilter();
+  $alignment = new Alignment();
 
   if ($_POST['operacion'] == 'listar'){
     $datosObtenidos = $alignment->listar();

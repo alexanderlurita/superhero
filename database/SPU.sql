@@ -69,3 +69,63 @@ END $$
 CALL spu_filtrar_superheros(1,1,1);
 
 SELECT * FROM superhero WHERE race_id = 1 AND gender_id = 1 AND alignment_id = 1;
+
+
+DELIMITER $$
+CREATE PROCEDURE spu_superhero_graphic()
+BEGIN
+	SELECT 	alignment.`id`, 
+				alignment.`alignment`, 
+				COUNT(*) 'amount'
+		FROM superhero
+		LEFT JOIN alignment ON `alignment`.`id` = superhero.`alignment_id`
+		GROUP BY alignment.`id`, alignment.`alignment`;
+END $$
+	
+SELECT * FROM superhero WHERE alignment_id IS NULL
+
+
+-- EJERCICIOS
+-- NUMERO 1
+DELIMITER $$
+CREATE PROCEDURE spu_superhero_ejercicio01(IN _publisher_id INT)
+BEGIN
+	SELECT  	alignment.`id`, 
+				alignment.`alignment`, 
+				COUNT(*) 'amount'
+		FROM superhero
+		LEFT JOIN alignment ON `alignment`.`id` = superhero.`alignment_id`
+		WHERE superhero.`alignment_id` IN ('1', '2') AND superhero.`publisher_id` = _publisher_id
+		GROUP BY alignment.`id`, alignment.`alignment`;
+END $$
+
+CALL spu_superhero_ejercicio01(4)
+
+-- NUMERO 2
+DELIMITER $$
+CREATE PROCEDURE spu_superhero_ejercicio02()
+BEGIN
+	SELECT 	publisher.`id`,
+				publisher.`publisher_name`, 
+				colour.`colour`, 
+				COUNT(superhero.`eye_colour_id`) 'amount'
+		FROM superhero
+		INNER JOIN colour ON colour.`id` = superhero.`eye_colour_id`
+		INNER JOIN publisher ON publisher.`id` = superhero.`publisher_id`
+		WHERE superhero.`publisher_id` IN ('4', '13')
+		GROUP BY publisher.`publisher_name`, colour.`colour`
+		ORDER BY colour.id;
+END $$
+
+CALL spu_superhero_ejercicio02();
+
+SELECT * 
+	FROM superhero
+	WHERE publisher_id = 1;
+
+SELECT * FROM superhero WHERE eye_colour_id = 1
+SELECT colour.`id`, colour.`colour`, COUNT(*) 
+	FROM superhero 
+	LEFT JOIN colour ON colour.`id` = superhero.`eye_colour_id`
+	WHERE publisher_id = 4
+	GROUP BY colour.`id`, colour.`colour`

@@ -1,4 +1,4 @@
-<h1 class="text-md text-center"><?=$race?>, <?=$gender?>, <?=$alignment?></h1>
+<h1 class="text-md text-center"><?=$titulo?></h1>
 
 <table class="table table-border mt-3">
   <colgroup>

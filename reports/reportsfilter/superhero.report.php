@@ -1,7 +1,7 @@
 <?php
 
 require_once '../../vendor/autoload.php';
-require_once '../../models/SuperheroFilter.php';
+require_once '../../models/Superhero.php';
 
 use Spipu\Html2Pdf\Html2Pdf;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
@@ -9,11 +9,13 @@ use Spipu\Html2Pdf\Exception\ExceptionFormatter;
 
 try {
     //Instanciar clase superhero
-    $superHero = new SuperHeroFilter();
-    $datos = $superHero->listar($_GET['race_id'], $_GET['gender_id'], $_GET['alignment_id']);
-    $race = $_GET['race'];
-    $gender = $_GET['gender'];
-    $alignment = $_GET['alignment'];
+    $superHero = new Superhero();
+    $datos = $superHero->filtrar(
+        $_GET['race_id'], 
+        $_GET['gender_id'], 
+        $_GET['alignment_id'
+    ]);
+    $titulo = $_GET['titulo'];
 
     ob_start();
     //Hoja de estilos

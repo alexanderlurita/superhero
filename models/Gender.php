@@ -1,8 +1,8 @@
 <?php
 
-require "Conexion.php";
+require_once "Conexion.php";
 
-class GenderFilter extends Conexion{
+class Gender extends Conexion{
   private $conexion;
 
   public function __CONSTRUCT() {
@@ -13,7 +13,7 @@ class GenderFilter extends Conexion{
     try {
       $consulta = $this->conexion->prepare("SELECT * FROM gender");
       $consulta->execute();
-      return $consulta->fetchAll(PDO::FETCH_ASSOC);
+      return $consulta->fetchAll(PDO::FETCH_NUM);
     } catch (Exception $e) {
       die($e->getMessage());
     }
