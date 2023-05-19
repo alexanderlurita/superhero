@@ -41,9 +41,9 @@ class Superhero extends Conexion{
   }
 
   //Métodos para ejercicios
-  public function generarReporte01($publisher_id) {
+  public function generarGrafico01($publisher_id) {
     try {
-      $consulta = $this->conexion->prepare("CALL spu_superhero_ejercicio01(?)");
+      $consulta = $this->conexion->prepare("CALL spu_superhero_grafico01(?)");
       $consulta->execute(array($publisher_id));
       return $consulta->fetchAll(PDO::FETCH_ASSOC);
     } catch (Exception $e) {
@@ -51,9 +51,39 @@ class Superhero extends Conexion{
     }
   }
 
-  public function generarReporte02() {
+  public function generarGrafico02() {
     try {
-      $consulta = $this->conexion->prepare("CALL spu_superhero_ejercicio02()");
+      $consulta = $this->conexion->prepare("CALL spu_superhero_grafico02()");
+      $consulta->execute();
+      return $consulta->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Exception $e) {
+      die($e->getMessage());
+    }
+  }
+
+  public function generarGrafico03() {
+    try {
+      $consulta = $this->conexion->prepare("CALL spu_superhero_grafico03()");
+      $consulta->execute();
+      return $consulta->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Exception $e) {
+      die($e->getMessage());
+    }
+  }
+
+  public function generarGrafico04() {
+    try {
+      $consulta = $this->conexion->prepare("CALL spu_superhero_grafico04()");
+      $consulta->execute();
+      return $consulta->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Exception $e) {
+      die($e->getMessage());
+    }
+  }
+
+  public function generarGrafico05() {
+    try {
+      $consulta = $this->conexion->prepare("CALL spu_superhero_grafico05()");
       $consulta->execute();
       return $consulta->fetchAll(PDO::FETCH_ASSOC);
     } catch (Exception $e) {
