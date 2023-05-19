@@ -31,13 +31,28 @@ if (isset($_POST['operacion'])) {
     echo json_encode($datos);
   }
 
-  if ($_POST['operacion'] == 'generarReporte01') {
-    $datos = $superhero->generarReporte01($_POST['publisher_id']);
+  if ($_POST['operacion'] == 'generarGrafico01') {
+    $datos = $superhero->generarGrafico01($_POST['publisher_id']);
     echo json_encode($datos);
   }
 
-  if ($_POST['operacion'] == 'generarReporte02') {
-    $datos = $superhero->generarReporte02();
+  if ($_POST['operacion'] == 'generarGrafico02') {
+    $datos = $superhero->generarGrafico02();
+    echo json_encode($datos);
+  }
+  
+  if ($_POST['operacion'] == 'generarGrafico03') {
+    $datos = $superhero->generarGrafico03();
+    echo json_encode($datos);
+  }
+
+  if ($_POST['operacion'] == 'generarGrafico04') {
+    $datos = $superhero->generarGrafico04();
+    echo json_encode($datos);
+  }
+
+  if ($_POST['operacion'] == 'generarGrafico05') {
+    $datos = $superhero->generarGrafico05();
     echo json_encode($datos);
   }
     
