@@ -153,11 +153,16 @@ BEGIN
 		ORDER BY superhero.`alignment_id`, superhero.`gender_id`;
 END $$
 
+CALL spu_superhero_grafico04();
+
 -- GRAFICO 5
 DELIMITER $$
 CREATE PROCEDURE spu_superhero_grafico05()
 BEGIN
-	SELECT * FROM superhero;
+	SELECT race.`id`, race.`race`, COUNT(*) 'amount' 
+		FROM superhero
+		LEFT JOIN race ON race.`id` = superhero.`race_id`
+		GROUP BY race.`id`, race.`race`;
 END $$
 
 
