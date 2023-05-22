@@ -25,7 +25,7 @@
         </select>
       </div>
       <div class="col-md-1">
-        <div class="d-flex justify-content-center align-items-center" style="height: 70vh;">
+        <div class="d-flex justify-content-center align-items-center" style="height: 100%">
           <div class="d-grid gap-2">
             <button id="add" class="btn btn-primary" type="button">
               <i class="fa-solid fa-angle-right"></i>
@@ -76,7 +76,8 @@
       const removerTodo = document.getElementById("remove-all");
       const generar = document.getElementById("generar");
 
-      const razasArray = [];
+      const opcionesArray = [];
+      let dataArray = [];
 
       const grafico = new Chart(lienzo, {
         type: 'pie',
@@ -123,13 +124,13 @@
               razas.appendChild(option);
               //Insertamos cada opción al array global que tenemos 
               //para no hacer consultas constantes a la BD
-              razasArray.push(option);
+              opcionesArray.push(option);
             });
           })
       }
 
       function moveRaces(select) {
-        razasArray.forEach(option => {
+        opcionesArray.forEach(option => {
           select.appendChild(option);
         });
       }
@@ -169,9 +170,8 @@
         moveRaces(razas);
       }
 
-      function renderGraphic() {
-        if (filtro.options.length > 0) {
-          const pm = new URLSearchParams();
+      function getData() {
+        const pm = new URLSearchParams();
           pm.append("operacion", "generarGrafico05");
           
           fetch("../../controllers/Superhero.controller.php", {
@@ -180,19 +180,24 @@
           })
             .then(res => res.json())
             .then(data => {
-              const razasData = [];
-              Array.from(filtro.options).forEach(option => {
-                razasData.push(option.text);
-              });
-
-              const cantidadData = data
-                .filter(obj => razasData.includes(obj.race))
-                .map(obj => obj.amount)
-
-              grafico.data.labels = razasData;
-              grafico.data.datasets[0].data = cantidadData;
-              grafico.update();
+              dataArray = data;
             })
+      }
+
+      function renderGraphic() {
+        if (filtro.options.length > 0) {
+          const labels = [];
+          Array.from(filtro.options).forEach(option => {
+            labels.push(option.text);
+          });
+
+          const amount = dataArray
+            .filter(obj => labels.includes(obj.race))
+            .map(obj => obj.amount)
+
+          grafico.data.labels = labels;
+          grafico.data.datasets[0].data = amount;
+          grafico.update();
         } else {
           alert("Debe agregar al menos una raza ");
         }
@@ -207,6 +212,7 @@
 
       //Funciones automáticas
       loadRaces();
+      getData();
     });
   </script>
 </body>
